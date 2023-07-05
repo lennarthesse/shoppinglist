@@ -1,122 +1,66 @@
+<script>
+    let items = ["Item 1", "Item 2", "Item 3", "Item 4"]
+    let categories = ["Gemüse", "Category 2", "Category 3", "Category 4", "Category 5", "Category 6"]
+    let products = ["Product 1", "Product 2", "Product 3", "Product 4", "Product 5", "Product 6", "Product 7", "Product 8", "Product 9"];
+
+    function removeItem() {
+        alert("Removed item from shopping list!");
+    }
+
+    function filterCategory() {
+        alert("Selected category!");
+    }
+
+    function addProduct() {
+        alert("Added product to shopping list!");
+    }
+
+    function showInfo() {
+        alert("Showing product info!");
+    }
+</script>
+
 <section>
     <h1>ShoppingList</h1>
     <div class="items">
         <h2>Einkaufszettel</h2>
         <ul>
-            <li class="item">
-                <input type="checkbox" id="item1">
-                <label for="item1">Item 1</label>
-                <button class="remove-btn">
-                    ✕
-                </button>
-            </li>
-            <li class="item">
-                <input type="checkbox" id="item2">
-                <label for="item2">Item 2</label>
-                <button class="remove-btn">
-                    ✕
-                </button>
-            </li>
-            <li class="item">
-                <input type="checkbox" id="item3">
-                <label for="item3">Item 3</label>
-                <button class="remove-btn">
-                    ✕
-                </button>
-            </li>
-            <li class="item">
-                <input type="checkbox" id="item4">
-                <label for="item4">Item 4</label>
-                <button class="remove-btn">
-                    ✕
-                </button>
-            </li>
+            {#each items as item}
+                <li class="item">
+                    <label>
+                        <input type="checkbox">
+                        {item}
+                    </label>
+                    <button class="remove-btn" on:click={removeItem}>
+                        ✕
+                    </button>
+                </li>
+            {/each}
         </ul>
     </div>
 
     <div class="categories">
-        <div class="category">Category 1</div>
-        <div class="category">Category 2</div>
-        <div class="category">Category 3</div>
-        <div class="category">Category 4</div>
-        <div class="category">Category 5</div>
-        <div class="category">Category 6</div>
+        {#each categories as category}
+            <button class="category" on:click={filterCategory}>
+                {category}
+            </button>
+        {/each}
     </div>
 
     <div class="products">
         <ul>
-            <li class="product">
-                <div class="product-body">
-                    Product 1
-                    <button class="product-info">
-                        ?
-                    </button>
-                </div>
-            </li>
-            <li class="product">
-                <div class="product-body">
-                    Product 2
-                    <button class="product-info">
-                        ?
-                    </button>
-                </div>
-            </li>
-            <li class="product">
-                <div class="product-body">
-                    Product 3
-                    <button class="product-info">
-                        ?
-                    </button>
-                </div>
-            </li>
-            <li class="product">
-                <div class="product-body">
-                    Product 4
-                    <button class="product-info">
-                        ?
-                    </button>
-                </div>
-            </li>
-            <li class="product">
-                <div class="product-body">
-                    Product 5
-                    <button class="product-info">
-                        ?
-                    </button>
-                </div>
-            </li>
-            <li class="product">
-                <div class="product-body">
-                    Product 6
-                    <button class="product-info">
-                        ?
-                    </button>
-                </div>
-            </li>
-            <li class="product">
-                <div class="product-body">
-                    Product 7
-                    <button class="product-info">
-                        ?
-                    </button>
-                </div>
-            </li>
-            <li class="product">
-                <div class="product-body">
-                    Product 8
-                    <button class="product-info">
-                        ?
-                    </button>
-                </div>
-            </li>
-            <li class="product">
-                <div class="product-body">
-                    Product 9
-                    <button class="product-info">
-                        ?
-                    </button>
-                </div>
-            </li>
+            {#each products as product}
+                <li class="product-wrapper">
+                    <div class="product">
+                        <button class="product-body" on:click={addProduct}>
+                            {product}
+                        </button>
+                        <button class="product-info" on:click={showInfo}>
+                            ?
+                        </button>
+                    </div>
+                </li>
+            {/each}
         </ul>
     </div>
 </section>
