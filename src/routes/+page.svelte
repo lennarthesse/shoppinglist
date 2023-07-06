@@ -1,7 +1,23 @@
 <script>
+    import { onMount } from "svelte";
+    import Cross from "$lib/cross.svelte";
+
     let items = ["Item 1", "Item 2", "Item 3", "Item 4"]
     let categories = ["Gemüse", "Category 2", "Category 3", "Category 4", "Category 5", "Category 6"]
     let products = ["Product 1", "Product 2", "Product 3", "Product 4", "Product 5", "Product 6", "Product 7", "Product 8", "Product 9"];
+    let dialog;
+
+	onMount(() => {
+		dialog = document.getElementById('modal');
+	})
+
+    function openDialog() {
+        dialog.showModal();
+    }
+
+    function closeModal() {
+        dialog.close();
+    }
 
     function removeItem() {
         alert("Removed item from shopping list!");
@@ -32,21 +48,23 @@
                         {item}
                     </label>
                     <button class="remove-btn" on:click={removeItem}>
-                        ✕
+                        <Cross />
                     </button>
                 </li>
             {/each}
         </ul>
     </div>
+</section>
 
-    <div class="categories">
-        {#each categories as category}
-            <button class="category" on:click={filterCategory}>
-                {category}
-            </button>
-        {/each}
-    </div>
+<div class="categories">
+    {#each categories as category}
+        <button class="category" on:click={filterCategory}>
+            {category}
+        </button>
+    {/each}
+</div>
 
+<section>
     <div class="products">
         <ul>
             {#each products as product}
@@ -65,11 +83,15 @@
     </div>
 </section>
 
-<button class="add-product">
-    <svg viewBox="0 0 100 100"
-        stroke="#ffffff"
-        stroke-width="10">
-        <line x1="50" y1="0" x2="50" y2="100" />
-        <line x1="0" y1="50" x2="100" y2="50" />
-    </svg>
+<button class="add-product" on:click={openDialog}>
+    <Cross />
 </button>
+
+<dialog id="modal">
+    <h1>Add Product</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nostrum natus minus! Perferendis nemo ut repellendus unde deserunt ipsam earum amet a velit, blanditiis porro ipsa labore eos doloribus sequi?</p>
+    <div class="buttons">
+        <button class="button btn-primary-light" on:click={closeModal}>Cancel</button>
+        <button class="button btn-primary" on:click={closeModal}>Done</button>
+    </div>
+</dialog>
