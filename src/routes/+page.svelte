@@ -88,10 +88,10 @@
 </button>
 
 <dialog id="modal">
-    <h1>Add Product</h1>
+    <h1>Produkt hinzufügen</h1>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nostrum natus minus! Perferendis nemo ut repellendus unde deserunt ipsam earum amet a velit, blanditiis porro ipsa labore eos doloribus sequi?</p>
     <div class="buttons">
-        <button class="button btn-primary-light" on:click={closeModal}>Cancel</button>
-        <button class="button btn-primary" on:click={closeModal}>Done</button>
+        <button class="button btn-primary-light" on:click={closeModal}>Abbrechen</button>
+        <button class="button btn-primary" on:click={closeModal}>Hinzufügen</button>
     </div>
 </dialog>
