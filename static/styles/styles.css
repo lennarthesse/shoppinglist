@@ -122,7 +122,7 @@ button {
     cursor: pointer;
 }
 
-.item label input:checked {
+.item label input:checked ~ * {
     text-decoration: line-through;
 }
 

@@ -72,7 +72,7 @@
                 <li class="item">
                     <label>
                         <input type="checkbox">
-                        {item}
+                        <span>{item}</span>
                     </label>
                     <button class="remove-btn" on:click={removeItemFromList(item)}>
                         <Cross />
