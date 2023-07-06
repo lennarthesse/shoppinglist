@@ -8,10 +8,14 @@ An app that keeps track of the products you buy and suggests frequently bought o
 
 [ ] Edit product
 
-[ ] Add product form
+[x] Add product form
 
-[ ] Add products to list
+[ ] Products persistent storage
+
+[x] Add products to list
 
 [ ] Cross off product in list
 
-[ ] Delete product from list
+[x] Delete product from list
+
+[ ] Filter products

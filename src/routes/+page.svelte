@@ -4,7 +4,7 @@
 
     let items = ["Item 1", "Item 2", "Item 3", "Item 4"]
     let categories = ["Gemüse", "Category 2", "Category 3", "Category 4", "Category 5", "Category 6"]
-    let products = [];
+    let products = [{ name: "Nudeln - Fussili", brand: "Barilla", price: null }, { name: "Tomaten", brand: null, price: null }];
     let modal;
 
 	onMount(() => {
@@ -23,8 +23,8 @@
     
     function addProduct() {
         let productName = document.getElementById("product-name").value;
-        let productBrand = document.getElementById("product-brand").value === "" ? null : document.getElementById("product-brand").value;
-        let productPrice = document.getElementById("product-price").value === "" ? null : document.getElementById("product-price").value;
+        let productBrand = document.getElementById("product-brand").value == "" ? null : document.getElementById("product-brand").value;
+        let productPrice = document.getElementById("product-price").value == "" ? null : document.getElementById("product-price").value;
 
         let product = {
             name: productName,
@@ -39,21 +39,27 @@
         let form = document.getElementById("add-product-form");
         form.reset();
     }
+    
+    function editProduct() {
+        alert("Showing product info!");
+    }
 
-    function removeItemFromList() {
-        alert("Removed item from shopping list!");
+    function addProductToList(product) {
+        items = [...items, product.name];
+    }
+    
+    function removeItemFromList(item) {
+        for (let i = 0; i < items.length; i++) {
+            if (items[i] == item) {
+                items.splice(i, 1);
+                items = [...items];
+                break;
+            }
+        }
     }
 
     function filterCategory() {
         alert("Selected category!");
-    }
-
-    function addProductToList() {
-        alert("Added product to shopping list!");
-    }
-
-    function editProduct() {
-        alert("Showing product info!");
     }
 </script>
 
@@ -68,7 +74,7 @@
                         <input type="checkbox">
                         {item}
                     </label>
-                    <button class="remove-btn" on:click={removeItemFromList}>
+                    <button class="remove-btn" on:click={removeItemFromList(item)}>
                         <Cross />
                     </button>
                 </li>
@@ -91,7 +97,7 @@
             {#each products as product}
                 <li class="product-wrapper">
                     <div class="product">
-                        <button class="product-body" on:click={addProductToList}>
+                        <button class="product-body" on:click={addProductToList(product)}>
                             {product.name}
                         </button>
                         <button class="product-info" on:click={editProduct}>
@@ -127,8 +133,8 @@
         </div>
 
         <div class="buttons">
-            <button class="button btn-primary-light" on:click={closeModal}>Abbrechen</button>
             <button class="button btn-primary">Hinzufügen</button>
+            <button class="button btn-primary-light" on:click={closeModal}>Abbrechen</button>
         </div>
     </form>
 </dialog>

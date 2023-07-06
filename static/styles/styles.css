@@ -122,6 +122,10 @@ button {
     cursor: pointer;
 }
 
+.item label input:checked {
+    text-decoration: line-through;
+}
+
 .item .remove-btn svg {
     stroke: #aaa;
     width: 1rem;
@@ -249,6 +253,7 @@ button {
 
 #modal .buttons {
     display: flex;
+    flex-direction: row-reverse;
     gap: 0.5rem;
     justify-content: end;
 }
