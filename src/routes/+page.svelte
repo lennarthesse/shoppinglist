@@ -4,7 +4,7 @@
 
     let items = ["Item 1", "Item 2", "Item 3", "Item 4"]
     let categories = ["Gemüse", "Category 2", "Category 3", "Category 4", "Category 5", "Category 6"]
-    let products = ["Product 1", "Product 2", "Product 3", "Product 4", "Product 5", "Product 6", "Product 7", "Product 8", "Product 9"];
+    let products = [];
     let modal;
 
 	onMount(() => {
@@ -22,7 +22,20 @@
     }
     
     function addProduct() {
-        alert("gagagugu");
+        let productName = document.getElementById("product-name").value;
+        let productBrand = document.getElementById("product-brand").value === "" ? null : document.getElementById("product-brand").value;
+        let productPrice = document.getElementById("product-price").value === "" ? null : document.getElementById("product-price").value;
+
+        let product = {
+            name: productName,
+            brand: productBrand,
+            price: productPrice
+        }
+
+        console.log(product);
+
+        products = [...products, product];
+
         let form = document.getElementById("add-product-form");
         form.reset();
     }
@@ -79,7 +92,7 @@
                 <li class="product-wrapper">
                     <div class="product">
                         <button class="product-body" on:click={addProductToList}>
-                            {product}
+                            {product.name}
                         </button>
                         <button class="product-info" on:click={editProduct}>
                             ?
@@ -106,6 +119,11 @@
         <div class="input-text">
             <label for="product-brand">Marke</label>
             <input type="text" name="product-brand" id="product-brand">
+        </div>
+
+        <div class="input-text">
+            <label for="product-price">Preis (in Euro)</label>
+            <input type="number" step="0.01" name="product-price" id="product-price">
         </div>
 
         <div class="buttons">
