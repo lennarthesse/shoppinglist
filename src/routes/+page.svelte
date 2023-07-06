@@ -5,21 +5,29 @@
     let items = ["Item 1", "Item 2", "Item 3", "Item 4"]
     let categories = ["Gemüse", "Category 2", "Category 3", "Category 4", "Category 5", "Category 6"]
     let products = ["Product 1", "Product 2", "Product 3", "Product 4", "Product 5", "Product 6", "Product 7", "Product 8", "Product 9"];
-    let dialog;
+    let modal;
 
 	onMount(() => {
-		dialog = document.getElementById('modal');
+		modal = document.getElementById('modal');
 	})
 
-    function openDialog() {
-        dialog.showModal();
+    function openModal() {
+        modal.showModal();
     }
 
     function closeModal() {
-        dialog.close();
+        modal.close();
+        let form = document.getElementById("add-product-form");
+        form.reset();
+    }
+    
+    function addProduct() {
+        alert("gagagugu");
+        let form = document.getElementById("add-product-form");
+        form.reset();
     }
 
-    function removeItem() {
+    function removeItemFromList() {
         alert("Removed item from shopping list!");
     }
 
@@ -27,11 +35,11 @@
         alert("Selected category!");
     }
 
-    function addProduct() {
+    function addProductToList() {
         alert("Added product to shopping list!");
     }
 
-    function showInfo() {
+    function editProduct() {
         alert("Showing product info!");
     }
 </script>
@@ -47,7 +55,7 @@
                         <input type="checkbox">
                         {item}
                     </label>
-                    <button class="remove-btn" on:click={removeItem}>
+                    <button class="remove-btn" on:click={removeItemFromList}>
                         <Cross />
                     </button>
                 </li>
@@ -70,10 +78,10 @@
             {#each products as product}
                 <li class="product-wrapper">
                     <div class="product">
-                        <button class="product-body" on:click={addProduct}>
+                        <button class="product-body" on:click={addProductToList}>
                             {product}
                         </button>
-                        <button class="product-info" on:click={showInfo}>
+                        <button class="product-info" on:click={editProduct}>
                             ?
                         </button>
                     </div>
@@ -83,15 +91,26 @@
     </div>
 </section>
 
-<button class="add-product" on:click={openDialog}>
+<button class="add-product" on:click={openModal}>
     <Cross />
 </button>
 
 <dialog id="modal">
     <h1>Produkt hinzufügen</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nostrum natus minus! Perferendis nemo ut repellendus unde deserunt ipsam earum amet a velit, blanditiis porro ipsa labore eos doloribus sequi?</p>
-    <div class="buttons">
-        <button class="button btn-primary-light" on:click={closeModal}>Abbrechen</button>
-        <button class="button btn-primary" on:click={closeModal}>Hinzufügen</button>
-    </div>
+    <form method="dialog" id="add-product-form" on:submit={addProduct}>
+        <div class="input-text">
+            <label for="product-name">Produktname</label>
+            <input type="text" name="product-name" id="product-name" required>
+        </div>
+        
+        <div class="input-text">
+            <label for="product-brand">Marke</label>
+            <input type="text" name="product-brand" id="product-brand">
+        </div>
+
+        <div class="buttons">
+            <button class="button btn-primary-light" on:click={closeModal}>Abbrechen</button>
+            <button class="button btn-primary">Hinzufügen</button>
+        </div>
+    </form>
 </dialog>

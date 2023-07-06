@@ -209,6 +209,7 @@ button {
 }
 
 #modal {
+    width: calc(100% - 2rem);
     max-width: calc(50ch - 2rem);
     margin: auto;
     border: 1px solid #aaa;
@@ -220,6 +221,30 @@ button {
 #modal h1 {
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
+}
+
+#modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#modal .input-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+#modal .input-text label {
+    padding-left: 0.5rem;
+}
+
+#modal .input-text input {
+    font-size: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #aaa;
+    border-radius: 0.5rem;
+    box-shadow: 1px 1px 4px #00000022;
 }
 
 #modal .buttons {
