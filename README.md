@@ -4,9 +4,9 @@ An app that keeps track of the products you buy and suggests frequently bought o
 
 ## Todo
 
-[ ] Edit product icon
-
 [ ] Edit product
+
+[ ] Edit product icon
 
 [x] Add product form
 
@@ -14,7 +14,7 @@ An app that keeps track of the products you buy and suggests frequently bought o
 
 [x] Add products to list
 
-[ ] Cross off product in list
+[x] Cross off product in list
 
 [x] Delete product from list
 

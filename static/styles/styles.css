@@ -243,12 +243,14 @@ button {
     padding-left: 0.5rem;
 }
 
-#modal .input-text input {
+#modal .input-text input,
+#modal .input-text select {
     font-size: 1rem;
     padding: 0.5rem;
     border: 1px solid #aaa;
     border-radius: 0.5rem;
     box-shadow: 1px 1px 4px #00000022;
+    background-color: var(--light);
 }
 
 #modal .buttons {

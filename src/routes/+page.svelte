@@ -2,9 +2,10 @@
     import { onMount } from "svelte";
     import Cross from "$lib/cross.svelte";
 
-    let items = ["Item 1", "Item 2", "Item 3", "Item 4"]
+    let items = []
     let categories = ["Gemüse", "Category 2", "Category 3", "Category 4", "Category 5", "Category 6"]
     let products = [{ name: "Nudeln - Fussili", brand: "Barilla", price: null }, { name: "Tomaten", brand: null, price: null }];
+
     let modal;
 
 	onMount(() => {
@@ -16,9 +17,9 @@
     }
 
     function closeModal() {
-        modal.close();
         let form = document.getElementById("add-product-form");
         form.reset();
+        modal.close();
     }
     
     function addProduct() {
@@ -32,8 +33,6 @@
             price: productPrice
         }
 
-        console.log(product);
-
         products = [...products, product];
 
         let form = document.getElementById("add-product-form");
@@ -45,7 +44,12 @@
     }
 
     function addProductToList(product) {
-        items = [...items, product.name];
+        let item = {
+            name: product.name,
+            checked: false
+
+        }
+        items = [...items, item];
     }
     
     function removeItemFromList(item) {
@@ -71,8 +75,8 @@
             {#each items as item}
                 <li class="item">
                     <label>
-                        <input type="checkbox">
-                        <span>{item}</span>
+                        <input type="checkbox" bind:checked={item.checked}>
+                        <span>{item.name}</span>
                     </label>
                     <button class="remove-btn" on:click={removeItemFromList(item)}>
                         <Cross />
@@ -119,17 +123,27 @@
     <form method="dialog" id="add-product-form" on:submit={addProduct}>
         <div class="input-text">
             <label for="product-name">Produktname</label>
-            <input type="text" name="product-name" id="product-name" required>
+            <input type="text" id="product-name" required>
         </div>
         
         <div class="input-text">
             <label for="product-brand">Marke</label>
-            <input type="text" name="product-brand" id="product-brand">
+            <input type="text" id="product-brand">
         </div>
 
         <div class="input-text">
             <label for="product-price">Preis (in Euro)</label>
-            <input type="number" step="0.01" name="product-price" id="product-price">
+            <input type="number" step="0.01" id="product-price">
+        </div>
+
+        <div class="input-text">
+            <label for="product-category">Kategorie</label>
+            <select id="product-category">
+                <option value="">Auswählen...</option>
+                {#each categories as category}
+                    <option>{category}</option>
+                {/each}
+            </select>
         </div>
 
         <div class="buttons">
