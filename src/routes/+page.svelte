@@ -209,7 +209,7 @@
                             <option>{currentProduct.category == null ? "Auswählen..." : currentProduct.category}</option>
                             {#each categories as category}
                                 {#if category != currentProduct.category}
-                                    <option>{category}</option>
+                                    <option>{category.name}</option>
                                 {/if}
                             {/each}
                         </select>
@@ -257,7 +257,7 @@
                 <select id="product-category">
                     <option value="">Auswählen...</option>
                     {#each categories as category}
-                        <option>{category}</option>
+                        <option>{category.name}</option>
                     {/each}
                 </select>
             </div>
