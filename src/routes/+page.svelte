@@ -6,22 +6,23 @@
     let categories = ["Obst", "Gemüse", "Süßigkeiten", "Aufschnitt"]
     let products = [{name: "Nudeln - Fussili", brand: "Barilla", price: null, category: null}, {name: "Tomaten", brand: null, price: null, category: "Gemüse"}];
 
-    let modal;
-    let modalMore = false;
+    let modalEditProduct;
+    let currentProduct;
+
+    let modalAddProduct;
+    let modalAddProductMore = false;
 
 	onMount(() => {
-		modal = document.getElementById('modal');
+        modalEditProduct = document.getElementById('edit-product-modal');
+		modalAddProduct = document.getElementById('add-product-modal');
 	})
 
-    function openModal() {
-        modal.showModal();
-        modalMore = false;
-    }
-
-    function closeModal() {
+    function openModalAddProduct() {
         let form = document.getElementById("add-product-form");
         form.reset();
-        modal.close();
+
+        modalAddProductMore = false;
+        modalAddProduct.showModal();
     }
     
     function addProduct() {
@@ -36,17 +37,13 @@
             price: productPrice,
             category: productCategory
         }
-
-        console.log(product);
-
+        
         products = [...products, product];
-
-        let form = document.getElementById("add-product-form");
-        form.reset();
     }
     
-    function editProduct() {
-        alert("Showing product info!");
+    function editProduct(product) {
+        currentProduct = product;
+        modalEditProduct.showModal();
     }
 
     function addProductToList(product) {
@@ -72,6 +69,10 @@
         alert("Selected category!");
     }
 </script>
+
+<svelte:head>
+    <title>ShoppingList</title>
+</svelte:head>
 
 <section>
     <h1>ShoppingList</h1>
@@ -110,21 +111,30 @@
                         <button class="product-body" on:click={addProductToList(product)}>
                             {product.name}
                         </button>
-                        <button class="product-info" on:click={editProduct}>
+                        <button class="product-info" on:click={editProduct(product)}>
                             ?
                         </button>
                     </div>
                 </li>
             {/each}
         </ul>
+        <dialog id="edit-product-modal" class="modal">
+            <h1>Product Info</h1>
+            {#if currentProduct}
+                <p>{currentProduct.name}</p>
+                <p>{currentProduct.brand}</p>
+                <p>{currentProduct.price}</p>
+                <p>{currentProduct.category}</p>
+            {/if}
+        </dialog>
     </div>
 </section>
 
-<button class="add-product" on:click={openModal}>
+<button class="add-product" on:click={openModalAddProduct}>
     <Cross />
 </button>
 
-<dialog id="modal">
+<dialog id="add-product-modal" class="modal">
     <h1>Produkt hinzufügen</h1>
     <form method="dialog" id="add-product-form" on:submit={addProduct}>
         <div class="input-text">
@@ -132,11 +142,11 @@
             <input type="text" id="product-name" required>
         </div>
 
-        {#if !modalMore}
-            <button class="button btn-primary-light" on:click={() => {modalMore = true;}}>Mehr Optionen...</button>
+        {#if !modalAddProductMore}
+            <button class="button btn-primary-light" on:click={() => {modalAddProductMore = true;}}>Mehr Optionen...</button>
         {/if}
         
-        {#if modalMore}
+        {#if modalAddProductMore}
             <div class="input-text">
                 <label for="product-brand">Marke</label>
                 <input type="text" id="product-brand">
@@ -156,12 +166,12 @@
                     {/each}
                 </select>
             </div>
-            <button class="button btn-primary-light" on:click={() => {modalMore = false;}}>Weniger Optionen...</button>
+            <button class="button btn-primary-light" on:click={() => {modalAddProductMore = false;}}>Weniger Optionen...</button>
         {/if}
 
         <div class="buttons">
             <button class="button btn-primary">Hinzufügen</button>
-            <button class="button btn-primary-light" on:click={closeModal}>Abbrechen</button>
+            <button class="button btn-primary-light" on:click={() => {modalAddProduct.close();}}>Abbrechen</button>
         </div>
     </form>
 </dialog>
