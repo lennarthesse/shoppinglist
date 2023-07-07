@@ -6,56 +6,89 @@
     let categories = ["Obst", "Gemüse", "Süßigkeiten", "Aufschnitt"]
     let products = [{name: "Nudeln - Fussili", brand: "Barilla", price: null, category: null}, {name: "Tomaten", brand: null, price: null, category: "Gemüse"}];
 
-    let modalEditProduct;
+    let editProductModal;
     let currentProduct;
 
-    let modalAddProduct;
+    let addProductModal;
     let modalAddProductMore = false;
 
 	onMount(() => {
-        modalEditProduct = document.getElementById('edit-product-modal');
-		modalAddProduct = document.getElementById('add-product-modal');
+        // Create references to modals
+        editProductModal = document.getElementById('edit-product-modal');
+		addProductModal = document.getElementById('add-product-modal');
 	})
 
-    function openModalAddProduct() {
+    function openAddProductModal() {
+        // Clear the form since submit doesn't clear it
         let form = document.getElementById("add-product-form");
         form.reset();
-
+        // Initialize optional values as hidden
         modalAddProductMore = false;
-        modalAddProduct.showModal();
+        // Open the modal
+        addProductModal.showModal();
     }
     
     function addProduct() {
+        //  Fetch the data from the inputs using IDs
         let productName = document.getElementById("product-name").value;
         let productBrand = document.getElementById("product-brand") ? document.getElementById("product-brand").value == "" ? null : document.getElementById("product-brand").value : null;
         let productPrice = document.getElementById("product-price") ? document.getElementById("product-price").value == "" ? null : document.getElementById("product-price").value : null;
         let productCategory = document.getElementById("product-category") ? document.getElementById("product-category").value == "" ? null : document.getElementById("product-category").value : null;
-
+        // Create a product object
         let product = {
             name: productName,
             brand: productBrand,
             price: productPrice,
             category: productCategory
         }
-        
+        // Add the product to the list of products
         products = [...products, product];
     }
     
     function editProduct(product) {
+        // Store the chosen product as a variable
         currentProduct = product;
-        modalEditProduct.showModal();
+        // Show the modal
+        editProductModal.showModal();
+    }
+
+    function saveProduct() {
+        //  Fetch the data from the inputs using IDs
+        let productName = document.getElementById("edit-product-name").value;
+        let productBrand = document.getElementById("edit-product-brand") ? document.getElementById("edit-product-brand").value == "" ? null : document.getElementById("edit-product-brand").value : null;
+        let productPrice = document.getElementById("edit-product-price") ? document.getElementById("edit-product-price").value == "" ? null : document.getElementById("edit-product-price").value : null;
+        let productCategory = document.getElementById("edit-product-category") ? document.getElementById("edit-product-category").value == "" ? null : document.getElementById("edit-product-category").value : null;
+        // Create a new product object
+        let product = {
+            name: productName,
+            brand: productBrand,
+            price: productPrice,
+            category: productCategory
+        }
+        // Find the the chosen product (currentProduct) and replace it with the new one (product)
+        for (let i = 0; i < products.length; i++) {
+            if (products[i] == currentProduct) {
+                products[i] = product;
+            }    
+        }
+        // Close the modal because for some reason it doesn't do it on its own
+        editProductModal.close();
+        // Reset the current product so that it can be reloaded the next time (else the UI isn't updated)
+        currentProduct = null;
     }
 
     function addProductToList(product) {
+        // Create item with product name and start off unchecked
         let item = {
             name: product.name,
             checked: false
-
         }
+        // Add item to list of items
         items = [...items, item];
     }
     
     function removeItemFromList(item) {
+        // Find the first exact match (considering the checked state) and remove it from the list
         for (let i = 0; i < items.length; i++) {
             if (items[i] == item) {
                 items.splice(i, 1);
@@ -119,18 +152,47 @@
             {/each}
         </ul>
         <dialog id="edit-product-modal" class="modal">
-            <h1>Product Info</h1>
+            <h1>Produkt bearbeiten</h1>
             {#if currentProduct}
-                <p>{currentProduct.name}</p>
-                <p>{currentProduct.brand}</p>
-                <p>{currentProduct.price}</p>
-                <p>{currentProduct.category}</p>
+                <form method="dialog" id="edit-product-form" on:submit={saveProduct}>
+                    <div class="input-text">
+                        <label for="edit-product-name">Produktname</label>
+                        <input type="text" id="edit-product-name" value={currentProduct.name} required>
+                    </div>
+
+                    <div class="input-text">
+                        <label for="edit-product-brand">Marke</label>
+                        <input type="text" id="edit-product-brand" value={currentProduct.brand == null ? "" : currentProduct.brand}>
+                    </div>
+
+                    <div class="input-text">
+                        <label for="edit-product-price">Preis (in Euro)</label>
+                        <input type="number" step="0.01" id="edit-product-price" value={currentProduct.price == null ? null : currentProduct.price}>
+                    </div>
+
+                    <div class="input-text">
+                        <label for="edit-product-category">Kategorie</label>
+                        <select id="edit-product-category">
+                            <option>{currentProduct.category == null ? "Auswählen..." : currentProduct.category}</option>
+                            {#each categories as category}
+                                {#if category != currentProduct.category}
+                                    <option>{category}</option>
+                                {/if}
+                            {/each}
+                        </select>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="button btn-primary" type="submit">Speichern</button>
+                        <button class="button btn-primary-light" on:click={() => {editProductModal.close(); currentProduct = null;}}>Abbrechen</button>
+                    </div>
+                </form>
             {/if}
         </dialog>
     </div>
 </section>
 
-<button class="add-product" on:click={openModalAddProduct}>
+<button class="add-product" on:click={openAddProductModal}>
     <Cross />
 </button>
 
@@ -170,8 +232,8 @@
         {/if}
 
         <div class="buttons">
-            <button class="button btn-primary">Hinzufügen</button>
-            <button class="button btn-primary-light" on:click={() => {modalAddProduct.close();}}>Abbrechen</button>
+            <button class="button btn-primary" type="submit">Hinzufügen</button>
+            <button class="button btn-primary-light" type="reset" on:click={() => {addProductModal.close();}}>Abbrechen</button>
         </div>
     </form>
 </dialog>

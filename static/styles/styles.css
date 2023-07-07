@@ -230,6 +230,10 @@ button {
     font-size: 1.25rem;
 }
 
+.modal h2 {
+    font-size: 1rem;
+}
+
 .modal form {
     display: flex;
     flex-direction: column;
