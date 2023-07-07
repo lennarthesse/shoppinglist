@@ -17,7 +17,7 @@ body {
     line-height: 1.5;
 }
 
-h1, h2, h3, h4, h5, h6, p {margin: 1em 0;}
+h1, h2, h3, h4, h5, h6, p {margin: 0.5em 0;}
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
@@ -98,7 +98,6 @@ button {
 
 .items h2 {
     font-size: 1.25rem;
-    margin-bottom: 0.5rem;
 }
 
 .items ul {
@@ -144,11 +143,16 @@ button {
 }
 
 .category {
-    color: var(--light);
     flex-shrink: 0;
     padding: 0.25rem 1rem;
     border-radius: 100rem;
     box-shadow: 1px 1px 4px #00000022;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.category.active {
+    color: var(--light);
     background-color: var(--primary);
 }
 
@@ -224,7 +228,6 @@ button {
 
 #modal h1 {
     font-size: 1.25rem;
-    margin-bottom: 0.5rem;
 }
 
 #modal form {

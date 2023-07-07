@@ -3,10 +3,11 @@
     import Cross from "$lib/cross.svelte";
 
     let items = []
-    let categories = ["Gemüse", "Category 2", "Category 3", "Category 4", "Category 5", "Category 6"]
-    let products = [{ name: "Nudeln - Fussili", brand: "Barilla", price: null }, { name: "Tomaten", brand: null, price: null }];
+    let categories = ["Obst", "Gemüse", "Süßigkeiten", "Aufschnitt"]
+    let products = [{name: "Nudeln - Fussili", brand: "Barilla", price: null, category: null}, {name: "Tomaten", brand: null, price: null, category: "Gemüse"}];
 
     let modal;
+    let modalMore = false;
 
 	onMount(() => {
 		modal = document.getElementById('modal');
@@ -14,6 +15,7 @@
 
     function openModal() {
         modal.showModal();
+        modalMore = false;
     }
 
     function closeModal() {
@@ -24,14 +26,18 @@
     
     function addProduct() {
         let productName = document.getElementById("product-name").value;
-        let productBrand = document.getElementById("product-brand").value == "" ? null : document.getElementById("product-brand").value;
-        let productPrice = document.getElementById("product-price").value == "" ? null : document.getElementById("product-price").value;
+        let productBrand = document.getElementById("product-brand") ? document.getElementById("product-brand").value == "" ? null : document.getElementById("product-brand").value : null;
+        let productPrice = document.getElementById("product-price") ? document.getElementById("product-price").value == "" ? null : document.getElementById("product-price").value : null;
+        let productCategory = document.getElementById("product-category") ? document.getElementById("product-category").value == "" ? null : document.getElementById("product-category").value : null;
 
         let product = {
             name: productName,
             brand: productBrand,
-            price: productPrice
+            price: productPrice,
+            category: productCategory
         }
+
+        console.log(product);
 
         products = [...products, product];
 
@@ -87,7 +93,7 @@
     </div>
 </section>
 
-<div class="categories">
+<div class="categories" tabindex="-1">
     {#each categories as category}
         <button class="category" on:click={filterCategory}>
             {category}
@@ -125,26 +131,33 @@
             <label for="product-name">Produktname</label>
             <input type="text" id="product-name" required>
         </div>
+
+        {#if !modalMore}
+            <button class="button btn-primary-light" on:click={() => {modalMore = true;}}>Mehr Optionen...</button>
+        {/if}
         
-        <div class="input-text">
-            <label for="product-brand">Marke</label>
-            <input type="text" id="product-brand">
-        </div>
+        {#if modalMore}
+            <div class="input-text">
+                <label for="product-brand">Marke</label>
+                <input type="text" id="product-brand">
+            </div>
 
-        <div class="input-text">
-            <label for="product-price">Preis (in Euro)</label>
-            <input type="number" step="0.01" id="product-price">
-        </div>
+            <div class="input-text">
+                <label for="product-price">Preis (in Euro)</label>
+                <input type="number" step="0.01" id="product-price">
+            </div>
 
-        <div class="input-text">
-            <label for="product-category">Kategorie</label>
-            <select id="product-category">
-                <option value="">Auswählen...</option>
-                {#each categories as category}
-                    <option>{category}</option>
-                {/each}
-            </select>
-        </div>
+            <div class="input-text">
+                <label for="product-category">Kategorie</label>
+                <select id="product-category">
+                    <option value="">Auswählen...</option>
+                    {#each categories as category}
+                        <option>{category}</option>
+                    {/each}
+                </select>
+            </div>
+            <button class="button btn-primary-light" on:click={() => {modalMore = false;}}>Weniger Optionen...</button>
+        {/if}
 
         <div class="buttons">
             <button class="button btn-primary">Hinzufügen</button>

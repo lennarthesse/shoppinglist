@@ -20,4 +20,4 @@ An app that keeps track of the products you buy and suggests frequently bought o
 
 [ ] Filter products
 
-[ ] Bug: checkboxes dont keep up with deleting items
+[x] Bug: checkboxes dont keep up with deleting items
