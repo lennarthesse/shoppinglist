@@ -4,7 +4,7 @@ An app that keeps track of the products you buy and suggests frequently bought o
 
 ## Todo
 
-[ ] Edit product
+[x] Edit product
 
 [ ] Edit product icon
 

@@ -3,8 +3,27 @@
     import Cross from "$lib/cross.svelte";
 
     let items = []
-    let categories = ["Obst", "Gemüse", "Süßigkeiten", "Aufschnitt"]
+    let categories = [
+        {
+            name: "Obst",
+            active: false
+        },
+        {
+            name: "Gemüse",
+            active: false
+        },
+        {
+            name: "Süßigkeiten",
+            active: false
+        },
+        {
+            name: "Aufschnitt",
+            active: false
+        }
+    ]
     let products = [{name: "Nudeln - Fussili", brand: "Barilla", price: null, category: null}, {name: "Tomaten", brand: null, price: null, category: "Gemüse"}];
+
+    let currentCategory = null;
 
     let editProductModal;
     let currentProduct;
@@ -98,8 +117,20 @@
         }
     }
 
-    function filterCategory() {
-        alert("Selected category!");
+    function filterCategory(category) {
+        for (let i = 0; i < categories.length; i++) {
+            if (categories[i] == category) {
+                if (categories[i].active) {
+                    categories[i].active = false;
+                    currentCategory = null;
+                } else {
+                    categories[i].active = true;
+                    currentCategory = category.name;
+                }
+            } else {
+                categories[i].active = false;
+            }
+        }
     }
 </script>
 
@@ -129,8 +160,8 @@
 
 <div class="categories" tabindex="-1">
     {#each categories as category}
-        <button class="category" on:click={filterCategory}>
-            {category}
+        <button class={category.active ? "active category" : "category"} on:click={() => {filterCategory(category)}}>
+            {category.name}
         </button>
     {/each}
 </div>
@@ -139,16 +170,18 @@
     <div class="products">
         <ul>
             {#each products as product}
-                <li class="product-wrapper">
-                    <div class="product">
-                        <button class="product-body" on:click={addProductToList(product)}>
-                            {product.name}
-                        </button>
-                        <button class="product-info" on:click={editProduct(product)}>
-                            ?
-                        </button>
-                    </div>
-                </li>
+                {#if product.category == currentCategory || currentCategory == null}
+                    <li class="product-wrapper">
+                        <div class="product">
+                            <button class="product-body" on:click={addProductToList(product)}>
+                                {product.name}
+                            </button>
+                            <button class="product-info" on:click={editProduct(product)}>
+                                ?
+                            </button>
+                        </div>
+                    </li>
+                {/if}
             {/each}
         </ul>
         <dialog id="edit-product-modal" class="modal">
