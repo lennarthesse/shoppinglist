@@ -10,7 +10,7 @@ An app that keeps track of the products you buy and suggests frequently bought o
 
 [x] Add product form
 
-[ ] Products persistent storage
+[x] Products persistent storage
 
 [x] Add products to list
 

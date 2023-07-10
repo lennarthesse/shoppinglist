@@ -21,7 +21,7 @@
             active: false
         }
     ]
-    let products = [{name: "Nudeln - Fussili", brand: "Barilla", price: null, category: null}, {name: "Tomaten", brand: null, price: null, category: "Gemüse"}];
+    let products = [];
 
     let currentCategory = null;
 
@@ -33,6 +33,10 @@
 
     
 	onMount(() => {
+
+        const existingProducts = localStorage.getItem("products");
+        products = JSON.parse(existingProducts) || [];
+
         // Create references to modals
         editProductModal = document.getElementById('edit-product-modal');
 		addProductModal = document.getElementById('add-product-modal');
@@ -63,6 +67,8 @@
         }
         // Add the product to the list of products
         products = [...products, product];
+
+        localStorage.setItem("products", JSON.stringify(products));
     }
     
     function editProduct(product) {
@@ -78,6 +84,7 @@
                 if (products[i] == currentProduct) {
                     products.splice(i, 1);
                     products = [...products];
+                    localStorage.setItem("products", JSON.stringify(products));
                     break;
                 }
             }
@@ -103,6 +110,7 @@
         for (let i = 0; i < products.length; i++) {
             if (products[i] == currentProduct) {
                 products[i] = product;
+                localStorage.setItem("products", JSON.stringify(products));
             }    
         }
     }
