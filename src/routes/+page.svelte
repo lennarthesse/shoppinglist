@@ -31,6 +31,7 @@
     let addProductModal;
     let modalAddProductMore = false;
 
+    
 	onMount(() => {
         // Create references to modals
         editProductModal = document.getElementById('edit-product-modal');
@@ -71,6 +72,20 @@
         editProductModal.showModal();
     }
 
+    function deleteProduct() {
+        if (confirm("Soll das Produkt wirklich gelöscht werden?")) {
+            for (let i = 0; i < products.length; i++) {
+                if (products[i] == currentProduct) {
+                    products.splice(i, 1);
+                    products = [...products];
+                    break;
+                }
+            }
+            editProductModal.close();
+            currentProduct = null;
+        }
+    }
+
     function saveProduct() {
         //  Fetch the data from the inputs using IDs
         let productName = document.getElementById("edit-product-name").value;
@@ -90,10 +105,6 @@
                 products[i] = product;
             }    
         }
-        // Close the modal because for some reason it doesn't do it on its own
-        editProductModal.close();
-        // Reset the current product so that it can be reloaded the next time (else the UI isn't updated)
-        currentProduct = null;
     }
 
     function addProductToList(product) {
@@ -215,9 +226,11 @@
                         </select>
                     </div>
 
+                    <button class="button btn-delete" type="button" on:click={deleteProduct}>Produkt löschen</button>
+
                     <div class="buttons">
+                        <button class="button btn-primary-light" type="button" on:click={() => {editProductModal.close(); currentProduct = null;}}>Abbrechen</button>
                         <button class="button btn-primary" type="submit">Speichern</button>
-                        <button class="button btn-primary-light" on:click={() => {editProductModal.close(); currentProduct = null;}}>Abbrechen</button>
                     </div>
                 </form>
             {/if}
@@ -238,7 +251,7 @@
         </div>
 
         {#if !modalAddProductMore}
-            <button class="button btn-primary-light" on:click={() => {modalAddProductMore = true;}}>Mehr Optionen...</button>
+            <button class="button btn-primary-light" type="button" on:click={() => {modalAddProductMore = true;}}>Mehr Optionen...</button>
         {/if}
         
         {#if modalAddProductMore}
@@ -261,12 +274,12 @@
                     {/each}
                 </select>
             </div>
-            <button class="button btn-primary-light" on:click={() => {modalAddProductMore = false;}}>Weniger Optionen...</button>
+            <button class="button btn-primary-light" type="button" on:click={() => {modalAddProductMore = false;}}>Weniger Optionen...</button>
         {/if}
 
         <div class="buttons">
-            <button class="button btn-primary" type="submit">Hinzufügen</button>
             <button class="button btn-primary-light" type="reset" on:click={() => {addProductModal.close();}}>Abbrechen</button>
+            <button class="button btn-primary" type="submit">Hinzufügen</button>
         </div>
     </form>
 </dialog>

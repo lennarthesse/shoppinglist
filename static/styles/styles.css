@@ -73,11 +73,11 @@ button {
 
 .button {
     padding: 0.25rem 1rem;
-    color: var(--light);
     border-radius: 100rem;
 }
 
 .btn-primary {
+    color: var(--light);
     background-color: var(--primary);
 }
 
@@ -85,6 +85,11 @@ button {
     color: var(--primary);
     background-color: transparent;
     border: 0.1rem solid var(--primary);
+}
+
+.btn-delete {
+    color: var(--light);
+    background-color: #ff443d;
 }
 
 /**********/
@@ -262,7 +267,6 @@ button {
 
 .modal .buttons {
     display: flex;
-    flex-direction: row-reverse;
     gap: 0.5rem;
     justify-content: end;
 }
