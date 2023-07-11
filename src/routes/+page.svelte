@@ -13,11 +13,51 @@
             active: false
         },
         {
-            name: "Süßigkeiten",
+            name: "Hülsenfrüchte",
+            active: false
+        },
+        {
+            name: "Backwaren",
             active: false
         },
         {
             name: "Aufschnitt",
+            active: false
+        },
+        {
+            name: "Aufstrich",
+            active: false
+        },
+        {
+            name: "Vegetarisch / Vegan",
+            active: false
+        },
+        {
+            name: "Milchprodukte",
+            active: false
+        },
+        {
+            name: "Fisch & Fleisch",
+            active: false
+        },
+        {
+            name: "Gewürze",
+            active: false
+        },
+        {
+            name: "Trockenlebensmittel",
+            active: false
+        },
+        {
+            name: "Tiefkühlwaren",
+            active: false
+        },
+        {
+            name: "Süßigkeiten",
+            active: false
+        },
+        {
+            name: "Getränke",
             active: false
         }
     ]
@@ -183,6 +223,7 @@
             {category.name}
         </button>
     {/each}
+    <!--<button class="add category">+</button>-->
 </div>
 
 <section>
