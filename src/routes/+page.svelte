@@ -53,11 +53,15 @@
             active: false
         },
         {
-            name: "Süßigkeiten",
+            name: "Süßwaren",
             active: false
         },
         {
             name: "Getränke",
+            active: false
+        },
+        {
+            name: "Sonstige",
             active: false
         }
     ]
@@ -230,7 +234,8 @@
     <div class="products">
         <ul>
             {#each products as product}
-                {#if product.category == currentCategory || currentCategory == null}
+                <!-- Show product if its category matches the current category, no category is selected, or category is sonstige and product has no category -->
+                {#if product.category == currentCategory || currentCategory == null || (currentCategory == "Sonstige" && product.category == null)}
                     <li class="product-wrapper">
                         <div class="product">
                             <button class="product-body" on:click={addProductToList(product)}>
