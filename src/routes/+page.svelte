@@ -142,7 +142,7 @@
         let productName = document.getElementById("edit-product-name").value;
         let productBrand = document.getElementById("edit-product-brand") ? document.getElementById("edit-product-brand").value == "" ? null : document.getElementById("edit-product-brand").value : null;
         let productPrice = document.getElementById("edit-product-price") ? document.getElementById("edit-product-price").value == "" ? null : document.getElementById("edit-product-price").value : null;
-        let productCategory = document.getElementById("edit-product-category") ? document.getElementById("edit-product-category").value == "" ? null : document.getElementById("edit-product-category").value : null;
+        let productCategory = document.getElementById("edit-product-category") ? document.getElementById("edit-product-category").value == "Auswählen..." ? null : document.getElementById("edit-product-category").value : null;
         // Create a new product object
         let product = {
             name: productName,
@@ -157,6 +157,7 @@
                 localStorage.setItem("products", JSON.stringify(products));
             }    
         }
+        
     }
 
     function addProductToList(product) {
@@ -273,7 +274,7 @@
                         <select id="edit-product-category">
                             <option>{currentProduct.category == null ? "Auswählen..." : currentProduct.category}</option>
                             {#each categories as category}
-                                {#if category != currentProduct.category}
+                                {#if category.name != currentProduct.category}
                                     <option>{category.name}</option>
                                 {/if}
                             {/each}
