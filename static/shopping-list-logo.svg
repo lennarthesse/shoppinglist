@@ -1,0 +1,19 @@
+<svg width="100" height="100" fill="transparent">
+    <rect fill="#228B22" x="0" y="0" width="100" height="100" rx="25" />
+    <rect stroke="#ffffff" stroke-width="4" x="25" y="15" width="50" height="70" rx="8" />
+    
+    <rect fill="#ffffff" x="32" y="22" width="36" height="4" rx="2" />
+    
+    <rect fill="#ffffff" x="32" y="33" width="4" height="4" rx="2" />
+    <rect fill="#ffffff" x="39" y="33" width="29" height="4" rx="2" />
+    
+    <rect fill="#ffffff" x="32" y="43" width="4" height="4" rx="2" />
+    <rect fill="#ffffff" x="39" y="43" width="29" height="4" rx="2" />
+    
+    <rect fill="#ffffff" x="32" y="54" width="10" height="4" rx="2" />
+    <rect fill="#ffffff" x="45" y="54" width="13" height="4" rx="2" />
+    <rect fill="#ffffff" x="61" y="54" width="7" height="4" rx="2" />
+    
+    <rect fill="#ffffff" x="32" y="65" width="36" height="4" rx="2" />
+    <rect fill="#ffffff" x="32" y="75" width="36" height="4" rx="2" />
+</svg>
