@@ -49,6 +49,10 @@
             active: false
         },
         {
+            name: "Konserven",
+            active: false
+        },
+        {
             name: "Tiefkühlwaren",
             active: false
         },

@@ -8,6 +8,10 @@ An app that keeps track of the products you buy and suggests frequently bought o
 
 [ ] Bought counter
 
+[ ] Sorted products
+
+[ ] Persistent shopping list
+
 [x] Edit product
 
 [x] Add product form
